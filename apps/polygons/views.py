@@ -34,10 +34,7 @@ class PolygonViewSet(viewsets.ModelViewSet):
             RETURN a number, the sum of number of sides for all polygons in the list 
         """
         if request.data.get('to_sum'):
-            print(type(request.data.get('to_sum')))
-            print(Polygon.objects.filter(name__in=request.data.get('to_sum')))
             sum_data = Polygon.objects.filter(name__in=request.data.get('to_sum')).aggregate(Sum('num_sides'))
-            print(sum_data['num_sides__sum'])
             return Response(sum_data['num_sides__sum'])
         else:
             return Response(0)
